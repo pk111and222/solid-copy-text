@@ -1,0 +1,1 @@
+# solid-copy-to-clipboard
