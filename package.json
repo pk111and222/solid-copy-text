@@ -7,11 +7,11 @@
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pk111and222/solid-copy-to-clipboard"
+    "url": "git+https://github.com/pk111and222/solid-copy-text"
   },
-  "homepage": "https://github.com/pk111and222/solid-copy-to-clipboard#readme",
+  "homepage": "https://github.com/pk111and222/solid-copy-text#readme",
   "bugs": {
-    "url": "https://github.com/pk111and222/solid-copy-to-clipboard/issues"
+    "url": "https://github.com/pk111and222/solid-copy-text/issues"
   },
   "files": [
     "dist"
