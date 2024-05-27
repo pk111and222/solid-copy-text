@@ -1,0 +1,7 @@
+example/
+node_modules/
+test/
+**/.*
+tsup.config.ts
+tsconfig.json
+vitest.config.ts
