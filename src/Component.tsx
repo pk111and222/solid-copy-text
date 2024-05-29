@@ -1,7 +1,7 @@
-import { children, onMount, onCleanup } from "solid-js";
+import { children, createMemo, createEffect, onMount, onCleanup } from "solid-js";
 import type { JSX, ResolvedChildren } from "solid-js";
 import copy from 'copy-to-clipboard';
-import { isValidElement } from './utils'
+import { isValidElement, isFunction } from './utils'
 
 export interface Options {
   debug?: boolean;
@@ -15,34 +15,53 @@ export interface SolidCopyTextProps {
   onCopy: (text?: string, result?: boolean) => void;
   children?: JSX.Element;
   options?: Options;
+  eventName?: string | string[];
 } 
 
 export default function SolidCopyText(props: SolidCopyTextProps) {
-  const  {text, onCopy, options} = props;
   
   const resolved = children(() => props.children)
 
-  const ele: ResolvedChildren = resolved()
-
-  const onClick = () => {
-    const result = copy(text, options);
-
-    if (onCopy) {
-      onCopy(text, result);
-    }
-  }
-  
-  onMount(() => {
-    if(isValidElement(ele)) {
-      ele.addEventListener('click', onClick)
+  const eventNames = createMemo((): string[] =>  {
+    const val = props.eventName
+    if(Array.isArray(val) && val.length) {
+      if(val.length) return val
+      return ['click']
+    } else {
+      return [val as string || 'click']
     }
   })
 
-  onCleanup(() => {
-    if(isValidElement(ele)) {
-      ele.removeEventListener('click', onClick)
-    }
-  }) 
+  const onCopy = () => {
+    const result = copy(props.text, props.options);
 
-  return ele
+    if (isFunction(props.onCopy)) {
+      props.onCopy(props.text, result);
+    }
+  }
+
+  createEffect(() => {
+    const ele: ResolvedChildren = resolved()
+    const recyclable = Array.isArray(ele) ? ele : [ele]
+    recyclable.forEach(e => {
+      if(isValidElement(e)) {
+        eventNames().map(name => {
+          e.addEventListener(name, onCopy)
+        })
+      }
+    })
+    
+    onCleanup(() => {
+      console.log(ele)
+      recyclable.forEach(e => {
+        if(isValidElement(e)) {
+          eventNames().map(name => {
+            e.removeEventListener(name, onCopy)
+          })
+        }
+      })
+    }) 
+  });
+
+  return <>{resolved()}</>
 }

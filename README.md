@@ -41,6 +41,7 @@ function MyChartComponent() {
 - `option`: copy-to-clipboard `option` object with data and configuration.
 - `text`: copy text, type string 
 - `onCpoy`: used to handle the return of the copied logic. Will carry the text value and whether the copy was successful or not.
+- `eventName`: `string` Or `string[]` you can use the dom eventName https://developer.mozilla.org/en-US/docs/Web/Events. the default value is click.
 
 #### Type
 - `SolidCopyTextProps`: Component type export
