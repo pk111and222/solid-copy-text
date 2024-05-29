@@ -19,7 +19,7 @@ pnpm add solid-copy-text
 ```
 
 Use it:
-
+#### Component-Warp
 ```tsx
 import SolidCopyToClipboard from 'solid-copy-text'
 
@@ -34,7 +34,27 @@ function MyChartComponent() {
   );
 }
 ```
+#### directive
+```tsx
+import {copyText} from 'solid-copy-text'
 
+function MyChartComponent() {
+  const [str, setStr] = createSignal<string>('hello world again')
+  return (
+    <div use:copyText='hello world'>Click me copy</div>
+    <div use:copyText={str}>Click me copy</div>
+    <div use:copyText={{
+      text: 'hello world', 
+      onCopy: () => alert('Copied!')
+    }}>Click me copy</div>
+    <div use:copyText={{
+      text: 'hello world', 
+      onCopy: () => alert('Copied!'),
+      eventName: ['dbclick', 'contextmenu']
+    }}>Click me copy</div>
+  );
+}
+```
 
 #### Props
 

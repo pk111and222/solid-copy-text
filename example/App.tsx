@@ -2,6 +2,7 @@ import type { Component } from 'solid-js'
 import styles from './App.module.css'
 import SolidCopyText from '../src'
 import { Show, createSignal, onMount } from 'solid-js'
+import DrirectiveCom from './DrirectiveCom'
 
 const Bsic = (props: any) => {
   return (
@@ -77,6 +78,7 @@ const App: Component = () => {
       }
     </SolidCopyText>
     <div>122334</div>
+    <DrirectiveCom/>
    </div>
   )
 }
