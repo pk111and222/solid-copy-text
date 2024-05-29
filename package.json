@@ -1,6 +1,6 @@
 {
   "name": "solid-copy-text",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a copy to clipboard components for SolidJS",
   "license": "MIT",
   "author": "zeter",
